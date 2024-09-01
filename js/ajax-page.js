@@ -57,7 +57,7 @@
     }
 
     function shouldCache(url) {
-        const noCacheUrls = ['https://2upra.com/adf4fdf4'];
+        const noCacheUrls = ['https://2upra.com/nocache'];
         return !noCacheUrls.some(noCacheUrl => new RegExp(noCacheUrl.replace('*', '.*')).test(url));
     }
 
@@ -126,10 +126,17 @@
             if ($(element).hasClass('no-ajax') || $(element).parents('.no-ajax').length > 0) {
                 return true; // Permite el comportamiento predeterminado, sin AJAX
             }
-
-            if (!enlace || enlace.endsWith('.pdf') || enlace === 'https://2upra.com/adsfadf4' || enlace.startsWith('javascript:') || enlace.includes('#')) {
+        
+            // Convertir el enlace a minúsculas y eliminar espacios en blanco
+            const lowerCaseLink = enlace.trim().toLowerCase();
+        
+            // Verificar esquemas de URL potencialmente peligrosos
+            if (!enlace || lowerCaseLink.endsWith('.pdf') || enlace === 'https://2upra.com/nocache' ||
+                lowerCaseLink.startsWith('javascript:') || lowerCaseLink.startsWith('data:') || 
+                lowerCaseLink.startsWith('vbscript:') || enlace.includes('#')) {
                 return true;
             }
+            
             event.preventDefault();
             loadContent(enlace, true);
         }
