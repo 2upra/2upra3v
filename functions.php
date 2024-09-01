@@ -1,10 +1,10 @@
 <?php
-/*require_once ABSPATH . 'wp-content/stripe/init.php';
+require_once ABSPATH . 'wp-content/stripe/init.php';
 
 require_once __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load(); */
-//prueba
+$dotenv->load(); 
+
 function guardar_log($log) {
     $log_option_name = 'wanlog_logs';
     $logs = get_option($log_option_name, []);
