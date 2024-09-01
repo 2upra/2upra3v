@@ -154,7 +154,13 @@ function manejador_webhook_stripe(WP_REST_Request $request) {
     }
     $STRIPEKEY = $_ENV['STRIPEKEY'];
     \Stripe\Stripe::setApiKey($STRIPEKEY);
-    $endpoint_secret = 'whsec_ePDsUsn17WiJYwPEvWunhhC5rA7ldZb0';
+
+    if (!isset($_ENV['ENDVENTA'])) {
+        return new WP_Error('endpoint_secret_missing', 'El endpoint secret no está configurado', array('status' => 500));
+    }
+    
+    $endpoint_secret = $_ENV['ENDVENTA'];
+
     $payload = @file_get_contents('php://input');
     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
 
