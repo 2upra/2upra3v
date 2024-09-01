@@ -2,7 +2,7 @@
 /*
 Template Name: colab
 */
-
+//PRUEBA
 get_header();
 ?>
 
